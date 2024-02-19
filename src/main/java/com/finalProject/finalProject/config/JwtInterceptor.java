@@ -36,6 +36,7 @@ public class JwtInterceptor extends WebRequestHandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         String auth=request.getHeader("authorization");
+        //authorization endra namela irukkira Header moolam value edukkirathukku
 
         if(!(request.getRequestURI().contains("login") || request.getRequestURI().contains("signup"))){
             Claims claims=jwtUtils.verify(auth);

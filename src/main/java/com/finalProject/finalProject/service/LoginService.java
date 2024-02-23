@@ -2,6 +2,7 @@ package com.finalProject.finalProject.service;
 
 import com.finalProject.finalProject.comman.APIResponse;
 import com.finalProject.finalProject.dto.LoginRequestDTO;
+import com.finalProject.finalProject.dto.RequestMeta;
 import com.finalProject.finalProject.dto.SignUpRequestDTO;
 import com.finalProject.finalProject.entity.User;
 import com.finalProject.finalProject.repo.UserRepository;
@@ -23,6 +24,10 @@ public class LoginService {
 
     @Autowired
     private EmailService emailService;
+
+    /////
+    @Autowired
+    private RequestMeta requestMeta;
 
     public APIResponse signUp(SignUpRequestDTO signUpRequestDTO) {
         APIResponse apiResponse=new APIResponse();
@@ -65,7 +70,12 @@ public class LoginService {
 
         //response
         if(user==null){
-            apiResponse.setData("User login faild");
+            apiResponse.setData("Invalid Credentials!");
+            return apiResponse;
+        }
+        else if(!user.isVerified())
+        {
+            apiResponse.setData("please verify your email");
             return apiResponse;
         }
 
@@ -79,8 +89,25 @@ public class LoginService {
         return apiResponse;
     }
 
-    public void verify(String email, String otp) {
+    public void verifyy(String email, String otp) {
         User user=userRepository.findByEmail(email);
+        if(user==null){
+            throw new RuntimeException("User not found");
+        }
+        else if(user.isVerified()){
+            throw new RuntimeException("User is already verified");
+        }
+        else if(otp.equals(user.getOtp())){
+            user.setVerified(true);
+            userRepository.save(user);
+        }
+        else
+        {
+            throw new RuntimeException("Internal server error");
+        }
+    }
+    public void verify(String otp) {
+        User user=userRepository.findByEmail(requestMeta.getEmailId());
         if(user==null){
             throw new RuntimeException("User not found");
         }

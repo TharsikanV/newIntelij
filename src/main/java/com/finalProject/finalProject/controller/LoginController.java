@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@CrossOrigin("*")
 public class LoginController {
     @Autowired
     private LoginService loginService;
@@ -36,10 +37,21 @@ public class LoginController {
 
     }
 
-    @PostMapping("/verify")
+    @PostMapping("/verifyy")
     public ResponseEntity<APIResponse> verifyUser(@RequestParam String email, @RequestParam String otp){
         APIResponse apiResponse=new APIResponse();
-        loginService.verify(email, otp);
+        loginService.verifyy(email, otp);
+        apiResponse.setData("User verified successfully");
+
+        return ResponseEntity
+                .status(apiResponse.getStatus())
+                .body(apiResponse);
+    }
+
+    @PostMapping("/verify")
+    public ResponseEntity<APIResponse> verify(@RequestParam String otp){
+        APIResponse apiResponse=new APIResponse();
+        loginService.verify(otp);
         apiResponse.setData("User verified successfully");
 
         return ResponseEntity

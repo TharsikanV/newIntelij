@@ -11,6 +11,7 @@ import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.data.web.SortHandlerMethodArgumentResolver;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -59,6 +60,14 @@ public class CustomWebConfig implements WebMvcConfigurer {
 //    @Bean
 //    public JwtInterceptor jwtInterceptor(){
 //       return new JwtInterceptor(getRequestMeta());
+//    }
+
+    //ithu chatgpt la corspolicy problem kku podthu
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/verify") // Specify the endpoint you want to allow CORS for
+//                .allowedOrigins("http://localhost:3000") // Allow requests from this origin
+//                .allowedMethods("GET", "POST", "OPTIONS"); // Allow these HTTP methods
 //    }
 }
 

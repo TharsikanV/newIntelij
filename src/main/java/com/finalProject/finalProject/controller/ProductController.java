@@ -17,7 +17,6 @@ public class ProductController {
     private ProductService productService;
     @PostMapping("/createProduct")
     public ResponseEntity<APIResponse> createProduct(@RequestBody ProductDTO productDTO){
-
         APIResponse apiResponse=productService.createProduct(productDTO);
         return ResponseEntity
                 .status(apiResponse.getStatus())
@@ -32,6 +31,15 @@ public class ProductController {
                 .status(apiResponse.getStatus())
                 .body(apiResponse);
     }
+
+    @GetMapping("product/{id}")
+    public ResponseEntity<APIResponse> getProduct(@PathVariable("id") Long id){
+        APIResponse apiResponse = productService.getProduct(id);
+        return  ResponseEntity
+                .status(apiResponse.getStatus())
+                .body(apiResponse);
+    }
+
 
     @DeleteMapping("/products/{productid}")
     //@RequestMapping(value = "/products/{productid}",method = RequestMethod.DELETE)

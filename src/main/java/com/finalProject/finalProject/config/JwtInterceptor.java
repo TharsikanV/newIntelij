@@ -38,7 +38,7 @@ public class JwtInterceptor extends WebRequestHandlerInterceptorAdapter {
         String auth=request.getHeader("authorization");
         //authorization endra namela irukkira Header moolam value edukkirathukku
 
-        if(!(request.getRequestURI().contains("login") || request.getRequestURI().contains("signup"))){
+        if(!(request.getRequestURI().contains("login") || request.getRequestURI().contains("signup") || request.getRequestURI().contains("products") || request.getRequestURI().contains("product") || request.getRequestURI().contains("createProduct") || request.getRequestURI().contains("brand") || request.getRequestURI().contains("brands"))){
             Claims claims=jwtUtils.verify(auth);
             requestMeta.setUserName(claims.get("name").toString());
             requestMeta.setUserId(Long.valueOf(claims.getIssuer()));

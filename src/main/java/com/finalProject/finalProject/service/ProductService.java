@@ -20,6 +20,7 @@ public class ProductService {
         Product product=new Product();
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
+        product.setBrand_id(productDTO.getBrand_id());
         product.setPrice(productDTO.getPrice());
         product.setLocation(productDTO.getLocation());
 
@@ -53,4 +54,9 @@ public class ProductService {
     }
 
 
+    public APIResponse getProduct(Long id) {
+        APIResponse apiResponse=new APIResponse();
+        apiResponse.setData(productRepository.findById(id));
+        return apiResponse;
+    }
 }

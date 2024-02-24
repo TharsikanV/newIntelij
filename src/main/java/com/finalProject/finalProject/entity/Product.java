@@ -15,6 +15,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)//hibernate check pannum table ah ithu auto genaartela irukkannu
     private Long id;
     private String name;
+    private Integer brand_id;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private String price;
     private String location;

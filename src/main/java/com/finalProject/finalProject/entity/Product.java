@@ -20,5 +20,4 @@ public class Product {
     private String description;
     private String price;
     private String location;
-
 }

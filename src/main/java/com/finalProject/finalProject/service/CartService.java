@@ -29,8 +29,15 @@ public class CartService {
             apiResponse.setError("Already added to the cart");
             return apiResponse;
         }else{
-            cartRepository.save(cartDto.getUserId(),cartDto.getProductId());
+            Cart cart = new Cart();
+            cart.setUserId(cartDto.getUserId());
+            cart.setProductId(cartDto.getProductId());
+            // Set any other properties of the Cart entity as needed
+
+            cartRepository.save(cart);
             apiResponse.setData("Item added in the cart successfully");
+//            cartRepository.save(cartDto.getUserId(),cartDto.getProductId());
+//            apiResponse.setData("Item added in the cart successfully");
             return apiResponse;
         }
     }

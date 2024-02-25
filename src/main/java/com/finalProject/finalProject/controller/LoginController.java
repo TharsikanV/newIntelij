@@ -50,15 +50,24 @@ public class LoginController {
 
     @PostMapping("/verify")
     public ResponseEntity<APIResponse> verify(@RequestParam String otp){
-        APIResponse apiResponse=new APIResponse();
-        loginService.verify(otp);
-        apiResponse.setData("User verified successfully");
+//        APIResponse apiResponse=new APIResponse();
+        APIResponse apiResponse=loginService.verify(otp);
+
 
         return ResponseEntity
                 .status(apiResponse.getStatus())
                 .body(apiResponse);
     }
 
+    @DeleteMapping("/signOut")
+    public ResponseEntity<APIResponse> deleteUserById(){
+
+        APIResponse apiResponse=loginService.deleteOrderById();
+        return ResponseEntity
+                .status(apiResponse.getStatus())
+                .body(apiResponse);
+
+    }
     @GetMapping("/privateApi")
     public ResponseEntity <APIResponse> privateApi(@RequestHeader(value ="authorization",defaultValue ="") String auth) throws Exception {
         APIResponse apiResponse=new APIResponse();
@@ -70,4 +79,5 @@ public class LoginController {
                 .body(apiResponse);
 
     }
+
 }

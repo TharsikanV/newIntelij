@@ -62,7 +62,7 @@ public class LoginController {
     @DeleteMapping("/signOut")
     public ResponseEntity<APIResponse> deleteUserById(){
 
-        APIResponse apiResponse=loginService.deleteOrderById();
+        APIResponse apiResponse=loginService.deleteUserById();
         return ResponseEntity
                 .status(apiResponse.getStatus())
                 .body(apiResponse);

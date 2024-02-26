@@ -109,23 +109,35 @@ public class LoginService {
     public APIResponse verify(String otp) {
         APIResponse apiResponse=new APIResponse();
         User user=userRepository.findByEmail(requestMeta.getEmailId());
-        if(user==null){
-//            throw new RuntimeException("User not found");
+//        if(user==null){
+////            throw new RuntimeException("User not found");
+//            apiResponse.setError("User not found");
+//        }
+//        else if(user.isVerified()){
+////            throw new RuntimeException("User is already verified");
+//            apiResponse.setError("User is already verified");
+//        }
+//        else if(otp.equals(user.getOtp())){
+//            user.setVerified(true);
+//            userRepository.save(user);
+//            apiResponse.setData("User verified successfully");
+//        }
+//        else
+//        {
+////            throw new RuntimeException("Internal server error");
+//            apiResponse.setError("Internal server error");
+//        }
+        if (user == null) {
             apiResponse.setError("User not found");
-        }
-        else if(user.isVerified()){
-//            throw new RuntimeException("User is already verified");
+        } else if (user.isVerified()) {
             apiResponse.setError("User is already verified");
-        }
-        else if(otp.equals(user.getOtp())){
+        } else if (!otp.equals(user.getOtp())) {
+            apiResponse.setError("Incorrect OTP");
+        } else {
+            // OTP matches, mark the user as verified
             user.setVerified(true);
             userRepository.save(user);
             apiResponse.setData("User verified successfully");
-        }
-        else
-        {
-//            throw new RuntimeException("Internal server error");
-            apiResponse.setError("Internal server error");
         }
         return apiResponse;
     }
@@ -144,7 +156,7 @@ public class LoginService {
     }
 
 
-    public APIResponse deleteOrderById() {
+    public APIResponse deleteUserById() {
         APIResponse apiResponse=new APIResponse();
         userRepository.deleteById(requestMeta.getUserId());
         apiResponse.setData("Order Deleted Successfully");
